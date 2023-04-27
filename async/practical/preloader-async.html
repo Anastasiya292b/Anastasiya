@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>async-preloader</title> 
+	<style> 
+		// в данном  примере для наглядности и удобства определим и стили и скрипты в одном файле вместе с html 
+		// Однако в проектах стоит их выносить в отдельные файлы, чтобы можно было использовать на всех страницах сайта
+
+		.container {
+			 
+        	
+			align-items: center;
+			position: absolute;
+        	display: flex;
+  			align-items: center;
+
+  			
+		}
+		#preloader { /*зададим свойства прелоадера: */
+			position: absolute;
+        	top: 50%;
+        	left: 50%;
+    		width: 100%;
+    		height: 100%;
+    		z-index: 999999; /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+    		display: flex;
+    		align-items: center;
+    		justify-content: center   
+    		background: #fff;
+    		transition: all 0.5s;
+    		opacity: 1;
+		}
+
+		#preloader svg {
+    		max-width: 25em;
+   	 		border-radius: 3px;
+   	 		background: #FFF;
+    		fill: none;
+    		stroke: #BFE2FF;
+    		stroke-linecap: round;
+    		stroke-width: 12%
+		}
+		#preloader use {
+    		stroke: #337AB7;
+   			animation: preloader 2s linear infinite
+		}
+		@keyframes preloader {
+    		to { 
+        	stroke-dashoffset: 0px 
+    		} 
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<div id="preloader">
+		<!-- мы можем определять svg-файл непосредственно в коде страницы. Это значительно облегчает загрузку страницы, а также позовляет избежать вероятности, что графический файл не загрузится -->
+		<svg viewBox="-2000 -1000 4000 2000">
+        <path id="inf" d="M354-354A500 500 0 1 1 354 354L-354-354A500 500 0 1 0-354 354z"></path>
+        <use xlink:href="#inf" stroke-dasharray="1570 5143" stroke-dashoffset="6713px"></use>
+    	</svg>
+    	<!-- Необязательно самим писать svg-код. Вы можете скачать код любого понравившегося прелоадера и вставить его в страницу или скопировать данный вариант(Важно! при копировании svg-кода дял своего сайта необходимо также копировать код стиля ) -->
+	</div>
+	</div>
+	
+	
+	<script type="text/javascript">
+
+		let preloader = document.getElementById('preloader');
+
+		loadContent = function() { // Данная функция будет вызвана по окончанию таймаута, в течение которого проигрывается прелоадер
+			let newElement = document.createElement("h2"); // создаем элемент - заголовок 2 уровня и помещяем его в переменную
+			newElement.innerHTML =  "Контент загрузился"  // задаем элементу значение
+
+			const container = document.querySelector('.container');
+			container.appendChild(newElement);
+
+			
+			preloader.style.opacity = 0;
+			preloader.style.visibility = 'hidden';
+		}
+
+		async function WaitContent() {
+			let promise = new Promise((resolve, reject) => 
+			setTimeout(loadContent, 5000));
+			await promise;	
+		}
+			
+		WaitContent();
+	</script>
+</body>
+</html>

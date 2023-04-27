@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Грокаем форму</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<form id="MyForm"> <!-- Форму для примера накидал самую простую, без рамок, без стилизации. Простор для вашего творчества.  -->
+		<label>Строка</label>
+		<br>
+		<input name="MyString" value=" ">
+		<br>
+		<label>Номер слова</label>
+		<br>
+		<input name="WordNumber" value=0>
+		<br>
+		<button type="submit">Жмякай</button> 
+	</form>
+	<script> // Для большей понятности и наглядности я поместил код сюда, не выделяя отдельно в файл скрипта. Вы же можете код поместить в отдельный файл.
+		// Продвинутое решение - надо знать события - см. следующую лекцию. 
+		const formElement = document.getElementById('MyForm'); // извлекаем элемент формы
+		formElement.addEventListener('submit', (e) => {
+			//Добавляется слушатель события. 
+			// Функция addEventListener() принимает 2 параметра - тип кнопки ('submit') и стрелочную функцию которая принимает объект события (e)
+			// Данная функция при нажатии кнопки с типом "submit" вызовет анонимную  стрелочную функцию, переданную в качестве второго аргумента
+			e.preventDefault(); // Данный метод объекта события вызывается для того, чтобы отменить действие по умолчанию - отправку формы на сервер. Если отправку не отменить, что форма очистится автоматически, и мы не сможем извлечь нужные нам данные
+			const formData = new FormData(formElement); // создаём объект FormData, передаём в него элемент формы
+  			// теперь можно извлечь данные:
+			const MyString = formData.get('MyString'); 
+			const WordNumber = formData.get('WordNumber'); 
+			document.write(WordN(MyString, WordNumber)); // выводим вызова функции WordN(anyString, n) в веб-документ. Здесь вы можете проявить фантазию, и с помощью функции createElement() создать любой элемент и поместить результат выполнения функции в него
+		});
+		// ну и собственно сама функция которую надо определить\ Она написана не полностью, пропущено важное условие - ваша задача дописать эту функцию в соотвествии с заданием.
+		function WordN(anyString, n){
+			let stringArray = anyString.split(" ");
+			return stringArray[n-1];
+		}
+		
+	</script>
+</body>
+</html>

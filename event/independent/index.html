@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Калькулятор</title>
+		
+	</head>
+	<body>
+		<p>Число 1<input type="text" id="n1"></p>
+		<p>Число 2<input type="text" id="n2"></p>
+		<button onclick="Addict()">+</button>
+		<button onclick="Substract()">-</button>
+		<button onclick="Multiply()">X</button>
+		<button onclick="Divide()">/</button>
+		<hr>
+		<p>Результат: <span id="result"></span></p>
+
+		<script>
+			let num1;  // Создаём переменную где будет хранится значение первого числа
+			let num2;  // Создаём переменную где будет хранится значение второго числа
+
+		// Создаём переменную и берём элемент, куда будет выводится результат 
+			let result = document.getElementById('result');
+
+		// функция сложения
+			function Addict() {
+			num1 = document.getElementById('n1').value; 
+			num1 = parseInt(num1) // Данная операция нам необходима, чтобы преобразовать строку в число. Если мы этого не сделаем - получится 2+2 = 22
+			num2 = document.getElementById('n2').value;
+			num2 = parseInt(num2)
+
+			result.innerHTML = num1 + num2; // Напомним, что свойство innerHTML хранит код HTML, который будет показан внутри элелмента
+			}
+
+		// функция вычитания
+			function Substract() {
+			num1 = document.getElementById('n1').value; 
+			num1 = parseInt(num1)
+			num2 = document.getElementById('n2').value;
+			num2 = parseInt(num2)
+
+			result.innerHTML = num1 - num2;
+			}
+
+		// функция умножения
+			function Multiply() {
+			num1 = document.getElementById('n1').value; 
+			num1 = parseInt(num1)
+			num2 = document.getElementById('n2').value;
+			num2 = parseInt(num2)
+	
+			result.innerHTML = num1 * num2;
+		}
+
+		// функция деления
+			function Divide() {
+			num1 = document.getElementById('n1').value; 
+			num1 = parseInt(num1)
+			num2 = document.getElementById('n2').value;
+			num2 = parseInt(num2)
+
+			result.innerHTML = num1 / num2;
+		}
+		</script>
+	</body>
+</html>
